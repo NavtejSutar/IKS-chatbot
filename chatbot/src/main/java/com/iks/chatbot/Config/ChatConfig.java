@@ -6,6 +6,7 @@ import org.springframework.ai.chat.memory.ChatMemory;
 import org.springframework.ai.chat.memory.MessageWindowChatMemory;
 import org.springframework.ai.embedding.EmbeddingModel;
 import org.springframework.ai.openai.OpenAiChatModel;
+import org.springframework.ai.vectorstore.VectorStore;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Primary;
@@ -45,6 +46,32 @@ public class ChatConfig {
     }
 
     @Bean
+    @Primary
+    public VectorStore vectorStore(
+        EmbeddingModel embeddingModel,
+        org.springframework.ai.chroma.vectorstore.ChromaApi chromaApi
+    ) {
+        String tenant = "default_tenant";
+        String database = "default_database";
+        String collectionName = "SpringAiCollection";
+        try {
+            chromaApi.getCollection(tenant, database, collectionName);
+        } catch (Exception e) {
+            try {
+                chromaApi.createCollection(tenant, database, new org.springframework.ai.chroma.vectorstore.ChromaApi.CreateCollectionRequest(collectionName));
+            } catch (Exception ex) {
+                // Ignore if collection already exists
+            }
+        }
+        return org.springframework.ai.chroma.vectorstore.ChromaVectorStore.builder(chromaApi, embeddingModel)
+            .tenantName(tenant)
+            .databaseName(database)
+            .collectionName(collectionName)
+            .initializeSchema(false)
+            .build();
+    }
+
+    @Bean
     public WebMvcConfigurer corsConfigurer() {
         return new WebMvcConfigurer() {
             @Override
@@ -57,3 +84,4 @@ public class ChatConfig {
         };
     }
 }
+
