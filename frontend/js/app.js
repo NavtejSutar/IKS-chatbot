@@ -11,8 +11,14 @@ const STATE = {
   isRecording: false,
   speechSynth: window.speechSynthesis || null,
   currentUtterance: null,
-  theme: localStorage.getItem("iks_theme") || "dark"
+  theme: localStorage.getItem("iks_theme") || "dark",
+  apiUrl: localStorage.getItem("iks_api_url") || ""
 };
+
+function getApiBaseUrl() {
+  const url = localStorage.getItem("iks_api_url") || "";
+  return url.endsWith("/") ? url.slice(0, -1) : url;
+}
 
 // DOM Elements
 const elements = {
@@ -33,6 +39,7 @@ const elements = {
   btnDirectory: document.getElementById("btnDirectory"),
   btnVectorSearch: document.getElementById("btnVectorSearch"),
   btnSyncDoc: document.getElementById("btnSyncDoc"),
+  btnApiSettings: document.getElementById("btnApiSettings"),
   btnClearChat: document.getElementById("btnClearChat"),
   btnExportChat: document.getElementById("btnExportChat"),
   sanskritQuoteEl: document.getElementById("sanskritQuote"),
@@ -425,7 +432,7 @@ async function sendUserMessage(text) {
 
   try {
     // API Call to Spring Boot Backend
-    const url = `/chat?prompt=${encodeURIComponent(query)}&conversationId=${encodeURIComponent(STATE.currentSessionId)}`;
+    const url = `${getApiBaseUrl()}/chat?prompt=${encodeURIComponent(query)}&conversationId=${encodeURIComponent(STATE.currentSessionId)}`;
     const response = await fetch(url, {
       method: "GET",
       headers: { "Accept": "text/plain, application/json, */*" }
@@ -652,7 +659,7 @@ async function handleVectorSearch(e) {
   `;
 
   try {
-    const res = await fetch(`/search?question=${encodeURIComponent(query)}`);
+    const res = await fetch(`${getApiBaseUrl()}/search?question=${encodeURIComponent(query)}`);
     if (!res.ok) throw new Error(`HTTP ${res.status}: ${res.statusText}`);
     const data = await res.json();
 
@@ -694,7 +701,7 @@ async function handleSyncKnowledgeBase() {
 
   showToast("Processing PDF & embedding into ChromaDB...");
   try {
-    const res = await fetch("/doc");
+    const res = await fetch(`${getApiBaseUrl()}/doc`);
     if (!res.ok) throw new Error(`HTTP ${res.status}: ${res.statusText}`);
     const message = await res.text();
     showToast(`Success: ${message}`, "success");
@@ -746,7 +753,7 @@ async function checkBackendHealth() {
   const statusPill = document.getElementById("backendStatusText");
   try {
     // Ping with a lightweight check
-    const res = await fetch("/embed?text=ping", { method: "GET" });
+    const res = await fetch(`${getApiBaseUrl()}/embed?text=ping`, { method: "GET" });
     if (res.ok && statusPill) {
       statusPill.textContent = "Connected • ChromaDB Online";
     }
@@ -842,6 +849,19 @@ function initEventListeners() {
   // Sync Doc Button
   if (elements.btnSyncDoc) {
     elements.btnSyncDoc.addEventListener("click", handleSyncKnowledgeBase);
+  }
+
+  // Backend API Settings Button
+  if (elements.btnApiSettings) {
+    elements.btnApiSettings.addEventListener("click", () => {
+      const current = localStorage.getItem("iks_api_url") || "";
+      const input = prompt("Enter your deployed Spring Boot Backend URL (e.g., https://iks-backend.onrender.com):\n(Leave empty to use default local/proxy)", current);
+      if (input !== null) {
+        localStorage.setItem("iks_api_url", input.trim());
+        showToast(input.trim() ? "Backend URL set to " + input.trim() : "Reset to default Backend URL", "success");
+        checkBackendHealth();
+      }
+    });
   }
 
   // Export & Clear
