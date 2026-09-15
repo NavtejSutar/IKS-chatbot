@@ -3,7 +3,7 @@ version: '3.8'
 services:
   # 1. ChromaDB Vector Store
   chromadb:
-    image: chromadb/chroma:latest
+    image: chromadb/chroma:0.5.20
     container_name: iks-chromadb
     ports:
       - "8000:8000"

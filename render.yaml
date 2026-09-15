@@ -4,7 +4,7 @@ services:
     name: iks-chromadb
     runtime: image
     image:
-      url: chromadb/chroma:latest
+      url: chromadb/chroma:0.5.20
     plan: free
     envVars:
       - key: IS_PERSISTENT
