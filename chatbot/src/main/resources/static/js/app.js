@@ -16,8 +16,17 @@ const STATE = {
 };
 
 function getApiBaseUrl() {
-  const url = localStorage.getItem("iks_api_url") || "";
-  return url.endsWith("/") ? url.slice(0, -1) : url;
+  const url = localStorage.getItem("iks_api_url");
+  if (url && url.trim()) {
+    return url.endsWith("/") ? url.slice(0, -1) : url;
+  }
+  // Default to deployed backend URL if running on a remote frontend host (like Vercel/Render)
+  if (window.location.hostname !== "localhost" && 
+      window.location.hostname !== "127.0.0.1" && 
+      !window.location.hostname.includes("iks-chatbot-u1d3.onrender.com")) {
+    return "https://iks-chatbot-u1d3.onrender.com";
+  }
+  return "";
 }
 
 // DOM Elements
