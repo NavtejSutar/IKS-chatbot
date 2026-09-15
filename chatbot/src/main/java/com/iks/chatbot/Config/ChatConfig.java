@@ -54,15 +54,17 @@ public class ChatConfig {
         String tenant = "default_tenant";
         String database = "default_database";
         String collectionName = "SpringAiCollection";
+
         try {
             chromaApi.getCollection(tenant, database, collectionName);
         } catch (Exception e) {
             try {
                 chromaApi.createCollection(tenant, database, new org.springframework.ai.chroma.vectorstore.ChromaApi.CreateCollectionRequest(collectionName));
             } catch (Exception ex) {
-                // Ignore if collection already exists
+                // Ignore if collection already exists or Chroma is warming up
             }
         }
+
         return org.springframework.ai.chroma.vectorstore.ChromaVectorStore.builder(chromaApi, embeddingModel)
             .tenantName(tenant)
             .databaseName(database)
