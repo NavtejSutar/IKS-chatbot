@@ -1,0 +1,416 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>ज्ञान सेतु • IKS AI Assistant | Indian Knowledge Systems</title>
+  
+  <!-- Favicon -->
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🪔</text></svg>">
+
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@500;600;700;800;900&family=JetBrains+Mono:wght@400;500;600&family=Outfit:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+  <!-- Font Awesome Icons -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+
+  <!-- KaTeX CSS for LaTeX Math Formatting -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.css">
+
+  <!-- Custom Stylesheet -->
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+  <!-- Ambient Animated Background -->
+  <div class="bg-ambient">
+    <div class="diya-glow"></div>
+    <div class="mandala-watermark"></div>
+  </div>
+
+  <!-- App Main Wrapper -->
+  <div class="app-container">
+
+    <!-- Sidebar Navigation -->
+    <aside class="sidebar" id="sidebar">
+      
+      <!-- Sidebar Header -->
+      <div class="sidebar-header">
+        <div class="brand-badge">
+          <div class="brand-icon-wrapper">
+            <i class="fa-solid fa-om"></i>
+          </div>
+          <div class="brand-info">
+            <h1>ज्ञान सेतु</h1>
+            <span>IKS AI Assistant</span>
+          </div>
+        </div>
+        <button class="sidebar-action-btn" id="closeSidebarBtn" title="Close Sidebar">
+          <i class="fa-solid fa-xmark"></i>
+        </button>
+      </div>
+
+      <!-- New Chat Button -->
+      <div class="new-chat-wrapper">
+        <button class="btn-new-chat" id="btnNewChat">
+          <i class="fa-solid fa-feather-pointed"></i>
+          <span>New Conversation</span>
+        </button>
+      </div>
+
+      <!-- Sidebar Tabs -->
+      <div class="sidebar-tabs">
+        <button class="sidebar-tab-btn active" id="tabHistoryBtn">
+          <i class="fa-solid fa-clock-rotate-left"></i>
+          <span>History</span>
+        </button>
+        <button class="sidebar-tab-btn" id="tabCurriculumBtn">
+          <i class="fa-solid fa-book-bookmark"></i>
+          <span>Curriculum</span>
+        </button>
+      </div>
+
+      <!-- Sidebar Content -->
+      <div class="sidebar-content">
+        
+        <!-- Tab 1: Chat History -->
+        <div id="historyPanel">
+          <div class="history-section-title">Past Conversations</div>
+          <div id="chatHistoryList">
+            <!-- Dynamic Sessions populated by app.js -->
+          </div>
+        </div>
+
+        <!-- Tab 2: IKS Syllabus Explorer (Curriculum Guide) -->
+        <div id="curriculumPanel" style="display: none;">
+          <div class="history-section-title">IKS Syllabus Modules</div>
+          
+          <!-- Module 1 -->
+          <div class="curriculum-module">
+            <div class="module-header">
+              <span>Module 1: Foundations & Context</span>
+              <i class="fa-solid fa-chevron-down"></i>
+            </div>
+            <div class="module-items">
+              <button class="module-topic-btn" onclick="sendUserMessage('Explain the colonial education policies of Macaulay and Bentinck vs indigenous education.')">
+                <i class="fa-solid fa-landmark"></i> Colonial Policies & Macaulay
+              </button>
+              <button class="module-topic-btn" onclick="sendUserMessage('What did Dharampal discover in British archives regarding indigenous Indian education?')">
+                <i class="fa-solid fa-tree"></i> Dharampal (The Beautiful Tree)
+              </button>
+              <button class="module-topic-btn" onclick="sendUserMessage('Describe ancient Indian universities: Nalanda, Takshashila, and Valabhi.')">
+                <i class="fa-solid fa-graduation-cap"></i> Ancient Universities
+              </button>
+              <button class="module-topic-btn" onclick="sendUserMessage('Describe the ancient rock-cut water harvesting system at Kanheri Caves.')">
+                <i class="fa-solid fa-water"></i> Kanheri Water Management
+              </button>
+            </div>
+          </div>
+
+          <!-- Module 2 -->
+          <div class="curriculum-module">
+            <div class="module-header">
+              <span>Module 2: Core Disciplines</span>
+              <i class="fa-solid fa-chevron-down"></i>
+            </div>
+            <div class="module-items">
+              <button class="module-topic-btn" onclick="sendUserMessage('What are the foundational contributions of Charaka and Sushruta in Ayurveda?')">
+                <i class="fa-solid fa-mortar-pestle"></i> Ayurveda & Shalya Tantra
+              </button>
+              <button class="module-topic-btn" onclick="sendUserMessage('Explain ancient Indian metallurgy and Nagarjuna’s Rasaratnakara.')">
+                <i class="fa-solid fa-fire"></i> Rasashastra & Metallurgy
+              </button>
+              <button class="module-topic-btn" onclick="sendUserMessage('Detail Indian mathematical breakthroughs from Aryabhata, Brahmagupta, to the Kerala School.')">
+                <i class="fa-solid fa-calculator"></i> Ganita & Astronomy
+              </button>
+              <button class="module-topic-btn" onclick="sendUserMessage('Explain Nyaya epistemology, Pramanas, and the 5-step syllogism.')">
+                <i class="fa-solid fa-brain"></i> Nyaya & Indian Logic
+              </button>
+              <button class="module-topic-btn" onclick="sendUserMessage('Explain Kautilya’s Arthashastra and the Saptanga theory of state.')">
+                <i class="fa-solid fa-crown"></i> Arthashastra & Governance
+              </button>
+            </div>
+          </div>
+
+          <!-- Module 3 -->
+          <div class="curriculum-module">
+            <div class="module-header">
+              <span>Module 3: Elective Topics</span>
+              <i class="fa-solid fa-chevron-down"></i>
+            </div>
+            <div class="module-items">
+              <button class="module-topic-btn" onclick="sendUserMessage('Explain Natyashastra and classical Indian aesthetics (Rasa Siddhanta).')">
+                <i class="fa-solid fa-masks-theater"></i> Natyashastra & Aesthetics
+              </button>
+              <button class="module-topic-btn" onclick="sendUserMessage('What are the principles of ancient Indian town planning and Vastu Shastra?')">
+                <i class="fa-solid fa-city"></i> Town Planning & Vastu
+              </button>
+              <button class="module-topic-btn" onclick="sendUserMessage('Explain ancient Indian agriculture and Krishi Shastra treatises.')">
+                <i class="fa-solid fa-seedling"></i> Krishi Shastra (Agriculture)
+              </button>
+              <button class="module-topic-btn" onclick="sendUserMessage('Explain Panini’s Ashtadhyayi and the formal grammar system.')">
+                <i class="fa-solid fa-spell-check"></i> Vyakarana & Linguistics
+              </button>
+            </div>
+          </div>
+        </div>
+
+      </div>
+
+      <!-- Sidebar Footer -->
+      <div class="sidebar-footer">
+        <div class="system-status-pill">
+          <div class="status-indicator">
+            <div class="status-dot"></div>
+            <span id="backendStatusText">Groq + ChromaDB RAG</span>
+          </div>
+          <span style="color: var(--text-gold); font-size: 0.72rem; font-weight: 600;">Spring AI 2.0</span>
+        </div>
+      </div>
+    </aside>
+
+    <!-- Main Chat Content Container -->
+    <main class="chat-main">
+      
+      <!-- Top Navigation Header -->
+      <header class="top-nav">
+        <div class="nav-left">
+          <button class="toggle-sidebar-btn" id="toggleSidebarBtn" title="Toggle Menu">
+            <i class="fa-solid fa-bars-staggered"></i>
+          </button>
+          
+          <div class="header-quote">
+            <span class="sanskrit-chip"><i class="fa-solid fa-quote-left"></i> विद्या ददाति विनयं</span>
+            <span style="font-size: 0.8rem; color: var(--text-muted);">Knowledge imparts humility & wisdom</span>
+          </div>
+        </div>
+
+        <div class="nav-right">
+          <!-- Scholars Catalog Modal Button -->
+          <button class="tool-btn" id="btnDirectory" title="Scholars & Treatises Directory">
+            <i class="fa-solid fa-scroll"></i>
+            <span>Scholars Catalog</span>
+          </button>
+
+          <!-- Vector Search Inspector Button -->
+          <button class="tool-btn" id="btnVectorSearch" title="Inspect ChromaDB Semantic Search">
+            <i class="fa-solid fa-database"></i>
+            <span>Vector Search</span>
+          </button>
+
+          <!-- Sync Knowledge Base Button -->
+          <button class="tool-btn" id="btnSyncDoc" title="Re-index IKS PDF Knowledge Base">
+            <i class="fa-solid fa-arrows-rotate"></i>
+            <span>Sync Knowledge</span>
+          </button>
+
+          <!-- Export Chat -->
+          <button class="tool-btn" id="btnExportChat" title="Export Chat as Markdown">
+            <i class="fa-solid fa-arrow-down-to-bracket"></i>
+          </button>
+
+          <!-- Clear Chat -->
+          <button class="tool-btn" id="btnClearChat" title="Clear Messages">
+            <i class="fa-solid fa-trash-can"></i>
+          </button>
+
+          <!-- Theme Toggle -->
+          <button class="tool-btn" id="themeToggleBtn" title="Toggle Theme">
+            <i class="fa-solid fa-sun"></i>
+          </button>
+        </div>
+      </header>
+
+      <!-- Chat Messages Container -->
+      <div class="messages-container" id="messagesContainer">
+        
+        <!-- Welcome Hero View (Shown when conversation is empty) -->
+        <div class="welcome-hero" id="welcomeHero">
+          <div class="hero-emblem">
+            <i class="fa-solid fa-om"></i>
+          </div>
+          <h2>Indian Knowledge Systems</h2>
+          <p class="hero-subtext">
+            Explore 5,000+ years of classical Indian sciences, mathematics, medicine, statecraft, logic, and philosophy through an intelligent Tool-Calling RAG assistant.
+          </p>
+
+          <!-- Sanskrit Wisdom Subhashita Banner -->
+          <div class="sanskrit-banner">
+            <div class="sanskrit-quote" id="sanskritQuote">
+              विद्या ददाति विनयं विनयाद्याति पात्रताम् ।
+              पात्रत्वाद्धनमाप्नोति धनाद्धर्मं ततः सुखम् ॥
+            </div>
+            <div class="sanskrit-meaning" id="sanskritMeaning">
+              "Knowledge gives humility; from humility comes worthiness; from worthiness one attains prosperity; from prosperity righteousness, and thence enduring bliss."
+            </div>
+          </div>
+
+          <!-- Interactive Topic Cards Grid -->
+          <div class="cards-grid" id="cardsGrid">
+            <!-- Dynamic Prompt Cards generated by JavaScript -->
+          </div>
+        </div>
+
+      </div>
+
+      <!-- Chat Input Area -->
+      <div class="chat-input-area">
+        <div class="input-box-wrapper">
+          
+          <!-- Suggested Quick Chips Carousel -->
+          <div class="quick-chips-bar" id="quickChipsBar">
+            <!-- Populated by JavaScript -->
+          </div>
+
+          <!-- Input Form Container -->
+          <form class="input-form-container" id="chatForm">
+            <button type="button" class="icon-btn" id="btnVoiceInput" title="Voice Input (Speech to Text)">
+              <i class="fa-solid fa-microphone"></i>
+            </button>
+
+            <textarea 
+              class="chat-textarea" 
+              id="chatInput" 
+              placeholder="Ask anything about Indian Knowledge Systems, scholars, texts, theorems, or heritage..." 
+              rows="1"
+            ></textarea>
+
+            <div class="input-controls">
+              <button type="submit" class="btn-send" id="btnSend" title="Send message">
+                <i class="fa-solid fa-paper-plane"></i>
+              </button>
+            </div>
+          </form>
+
+          <div class="input-disclaimer">
+            <span>Powered by Groq LLM & Google Gemini Embeddings • ChromaDB Vector Store • Spring AI 2.0</span>
+          </div>
+
+        </div>
+      </div>
+
+    </main>
+
+  </div>
+
+  <!-- ========================================================================
+       MODALS
+       ======================================================================== -->
+
+  <!-- Modal 1: IKS Scholars & Treatises Catalog -->
+  <div class="modal-overlay" id="scholarsModal">
+    <div class="modal-card">
+      <div class="modal-header">
+        <div class="modal-title">
+          <i class="fa-solid fa-scroll"></i>
+          <span>IKS Scholars & Treatises Directory</span>
+        </div>
+        <button class="modal-close-btn" id="closeScholarsBtn">
+          <i class="fa-solid fa-xmark"></i>
+        </button>
+      </div>
+      <div class="modal-body">
+        <input 
+          type="text" 
+          class="scholar-search-box" 
+          id="scholarSearchInput" 
+          placeholder="Search scholars by name, text (e.g., Aryabhata, Sushruta, Madhava, Kautilya)..."
+        >
+        <!-- Category Filter Chips -->
+        <div class="quick-chips-bar" id="scholarFilterBar" style="margin-bottom: 1rem;">
+          <button class="quick-chip active" data-category="all"><i class="fa-solid fa-layer-group"></i> All Scholars</button>
+          <button class="quick-chip" data-category="ganita"><i class="fa-solid fa-calculator"></i> Ganita & Jyotisha</button>
+          <button class="quick-chip" data-category="ayurveda"><i class="fa-solid fa-user-doctor"></i> Ayurveda & Surgery</button>
+          <button class="quick-chip" data-category="rasashastra"><i class="fa-solid fa-fire-flame-curved"></i> Rasashastra & Metallurgy</button>
+          <button class="quick-chip" data-category="governance"><i class="fa-solid fa-crown"></i> Statecraft & Arthashastra</button>
+          <button class="quick-chip" data-category="nyaya"><i class="fa-solid fa-brain"></i> Nyaya & Logic</button>
+          <button class="quick-chip" data-category="linguistics"><i class="fa-solid fa-spell-check"></i> Vyakarana & Linguistics</button>
+          <button class="quick-chip" data-category="education"><i class="fa-solid fa-landmark-dome"></i> Education & Historiography</button>
+        </div>
+        <div class="scholars-grid" id="scholarsGrid">
+          <!-- Populated by knowledge-data.js -->
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Modal 2: ChromaDB Vector Store Inspector -->
+  <div class="modal-overlay" id="vectorModal">
+    <div class="modal-card">
+      <div class="modal-header">
+        <div class="modal-title">
+          <i class="fa-solid fa-database"></i>
+          <span>ChromaDB Vector Store Inspector</span>
+        </div>
+        <button class="modal-close-btn" id="closeVectorBtn">
+          <i class="fa-solid fa-xmark"></i>
+        </button>
+      </div>
+      <div class="modal-body">
+        <p style="font-size: 0.85rem; color: var(--text-secondary); margin-bottom: 1rem;">
+          Directly query the underlying ChromaDB vector store via the <code>/search?question=...</code> endpoint to inspect retrieved semantic chunks and metadata.
+        </p>
+        
+        <form id="vectorSearchForm" style="display: flex; gap: 0.5rem; margin-bottom: 1rem;">
+          <input 
+            type="text" 
+            class="scholar-search-box" 
+            id="vectorQueryInput" 
+            placeholder="Enter query to test vector similarity (e.g., Kanheri water management, Madhava series)..." 
+            style="margin-bottom: 0;" 
+            required
+          >
+          <button type="submit" class="btn-new-chat" style="width: auto; padding: 0.65rem 1.25rem;">
+            <i class="fa-solid fa-magnifying-glass"></i> Search
+          </button>
+        </form>
+
+        <div id="vectorResultsContainer">
+          <div style="text-align: center; color: var(--text-muted); padding: 2rem;">
+            Enter a search term above to test vector retrieval.
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Toast Notification Container -->
+  <div class="toast-container" id="toastContainer"></div>
+
+  <!-- External JavaScript Libraries for Markdown & LaTeX Rendering -->
+  <script src="https://cdn.jsdelivr.net/npm/marked@11.1.1/marked.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/dompurify@3.0.8/dist/purify.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/contrib/auto-render.min.js"></script>
+
+  <!-- Application Logic -->
+  <script src="js/knowledge-data.js"></script>
+  <script src="js/app.js"></script>
+
+  <!-- Tabs Navigation Script -->
+  <script>
+    const tabHistoryBtn = document.getElementById('tabHistoryBtn');
+    const tabCurriculumBtn = document.getElementById('tabCurriculumBtn');
+    const historyPanel = document.getElementById('historyPanel');
+    const curriculumPanel = document.getElementById('curriculumPanel');
+
+    if (tabHistoryBtn && tabCurriculumBtn) {
+      tabHistoryBtn.addEventListener('click', () => {
+        tabHistoryBtn.classList.add('active');
+        tabCurriculumBtn.classList.remove('active');
+        historyPanel.style.display = 'block';
+        curriculumPanel.style.display = 'none';
+      });
+
+      tabCurriculumBtn.addEventListener('click', () => {
+        tabCurriculumBtn.classList.add('active');
+        tabHistoryBtn.classList.remove('active');
+        historyPanel.style.display = 'none';
+        curriculumPanel.style.display = 'block';
+      });
+    }
+  </script>
+</body>
+</html>

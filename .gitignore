@@ -1,0 +1,47 @@
+# Node.js dependencies
+node_modules/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+.pnpm-debug.log*
+dist/
+dist-ssr/
+*.local
+.vite/
+
+# Maven & Java build outputs
+target/
+*.class
+*.jar
+*.war
+*.ear
+*.nar
+.mvn/wrapper/maven-wrapper.jar
+
+# Secrets & Environment Variables
+.env
+.env.local
+.env.*.local
+local.properties
+application-local.properties
+
+# ChromaDB & Vector Store local data
+chroma_data/
+*.db
+*.sqlite3
+
+# IDEs & System files
+.idea/
+.vscode/
+*.iml
+*.iws
+*.ipr
+.project
+.classpath
+.settings/
+.DS_Store
+Thumbs.db
+
+# Logs
+*.log
+logs/
